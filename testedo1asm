@@ -1,0 +1,22 @@
+.data
+	str1: .asciiz "Digite um numero: "
+	vet: .word 0,0,0,0,0,0,0,0,0,0
+.text
+	main:
+	loop:
+		la $a0, str1    			#movo pro registrador $a0 a str1
+		li $v0,4				#printo na tela
+		syscall					#chama o sistema	
+		li $v0, 5				# leio um numero que o usuario digitou
+		syscall
+		move $t3,$v0
+		addi $t0, $zero,1				#movo o q o usuario digitou pra um registrador temporario
+		beq $t3,$t0 , else
+		addi $t2,$zero,3
+		else: addi $t2,$zero,1
+		
+		la $a0, ($t2)			#movo pro a0 o valor no indice
+		li $v0,1			# informa que sera impresso um numero
+		syscall 
+		la $v0,10
+		syscall 	
